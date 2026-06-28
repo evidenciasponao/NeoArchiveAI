@@ -1,0 +1,6 @@
+@NeoArchiveAI.Api_HostAddress = http://localhost:5263
+
+GET {{NeoArchiveAI.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

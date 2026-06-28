@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="NeoArchiveAI.Api/NeoArchiveAI.Api.csproj" />
+  <Project Path="NeoArchiveAI.Application/NeoArchiveAI.Application.csproj" />
+  <Project Path="NeoArchiveAI.Domain/NeoArchiveAI.Domain.csproj" />
+  <Project Path="NeoArchiveAI.Infrastructure/NeoArchiveAI.Infrastructure.csproj" />
+  <Project Path="NeoArchiveAI.Tests/NeoArchiveAI.Tests.csproj" />
+</Solution>

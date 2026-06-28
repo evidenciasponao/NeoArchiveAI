@@ -1,0 +1,17 @@
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Infrastructure.deps.json
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Infrastructure.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Infrastructure.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Application.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Domain.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Domain.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Application.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.csproj.AssemblyReference.cache
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.AssemblyInfoInputs.cache
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.AssemblyInfo.cs
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.csproj.CoreCompileInputs.cache
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchi.1B49A8D5.Up2Date
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/refint/NeoArchiveAI.Infrastructure.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/ref/NeoArchiveAI.Infrastructure.dll

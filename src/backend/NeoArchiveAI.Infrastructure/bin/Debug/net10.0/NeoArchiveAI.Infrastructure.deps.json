@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "NeoArchiveAI.Infrastructure/1.0.0": {
+        "dependencies": {
+          "NeoArchiveAI.Application": "1.0.0",
+          "NeoArchiveAI.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NeoArchiveAI.Infrastructure.dll": {}
+        }
+      },
+      "NeoArchiveAI.Application/1.0.0": {
+        "dependencies": {
+          "NeoArchiveAI.Domain": "1.0.0"
+        },
+        "runtime": {
+          "NeoArchiveAI.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NeoArchiveAI.Domain/1.0.0": {
+        "runtime": {
+          "NeoArchiveAI.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "NeoArchiveAI.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NeoArchiveAI.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NeoArchiveAI.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

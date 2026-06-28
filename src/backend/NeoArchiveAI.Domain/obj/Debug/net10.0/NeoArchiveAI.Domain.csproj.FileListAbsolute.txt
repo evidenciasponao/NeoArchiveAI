@@ -1,0 +1,11 @@
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/bin/Debug/net10.0/NeoArchiveAI.Domain.deps.json
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/bin/Debug/net10.0/NeoArchiveAI.Domain.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/bin/Debug/net10.0/NeoArchiveAI.Domain.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.AssemblyInfoInputs.cache
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.AssemblyInfo.cs
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.csproj.CoreCompileInputs.cache
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/refint/NeoArchiveAI.Domain.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/NeoArchiveAI.Domain.pdb
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Domain/obj/Debug/net10.0/ref/NeoArchiveAI.Domain.dll
