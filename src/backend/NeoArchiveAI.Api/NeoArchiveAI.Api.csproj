@@ -8,10 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NeoArchiveAI.Application\NeoArchiveAI.Application.csproj" />
+    <ProjectReference Include="..\NeoArchiveAI.Infrastructure\NeoArchiveAI.Infrastructure.csproj" />
+    <ProjectReference Include="..\NeoArchiveAI.Domain\NeoArchiveAI.Domain.csproj" />
   </ItemGroup>
 
 </Project>
