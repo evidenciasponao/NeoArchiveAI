@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Documents;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
+using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 
 namespace NeoArchiveAI.Api.Controllers;
 
@@ -8,17 +9,40 @@ namespace NeoArchiveAI.Api.Controllers;
 [Route("api/[controller]")]
 public class DocumentsController : ControllerBase
 {
-    private readonly CreateDocumentHandler _handler;
+    private readonly CreateDocumentHandler _createHandler;
+    private readonly GetDocumentByIdHandler _getByIdHandler;
 
-    public DocumentsController(CreateDocumentHandler handler)
+    public DocumentsController(
+        CreateDocumentHandler createHandler,
+        GetDocumentByIdHandler getByIdHandler)
     {
-        _handler = handler;
+        _createHandler = createHandler;
+        _getByIdHandler = getByIdHandler;
     }
 
     [HttpGet]
     public IActionResult Get()
     {
         return Ok("NeoArchiveAI API funcionando.");
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetById(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetDocumentByIdQuery(id);
+
+        var response = await _getByIdHandler.Handle(
+            query,
+            cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);
     }
 
     [HttpPost]
@@ -37,7 +61,7 @@ public class DocumentsController : ControllerBase
             request.CategoryId,
             request.UploadedBy);
 
-        var response = await _handler.Handle(
+        var response = await _createHandler.Handle(
             command,
             cancellationToken);
 
