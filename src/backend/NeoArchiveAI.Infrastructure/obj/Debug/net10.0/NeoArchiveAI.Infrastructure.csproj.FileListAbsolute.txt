@@ -15,3 +15,5 @@
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/refint/NeoArchiveAI.Infrastructure.dll
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.pdb
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/ref/NeoArchiveAI.Infrastructure.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/bin/Debug/net10.0/NeoArchiveAI.Infrastructure.runtimeconfig.json
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Infrastructure/obj/Debug/net10.0/NeoArchiveAI.Infrastructure.genruntimeconfig.cache

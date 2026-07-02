@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "q9YINvQS17Q=",
+  "dgSpecHash": "GdBStM5DdCM=",
   "success": true,
   "projectFilePath": "/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Application/NeoArchiveAI.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/master/.nuget/packages/fluentvalidation/12.1.1/fluentvalidation.12.1.1.nupkg.sha512",
+    "/home/master/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.9/microsoft.extensions.dependencyinjection.abstractions.10.0.9.nupkg.sha512"
+  ],
   "logs": []
 }
