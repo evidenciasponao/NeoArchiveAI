@@ -62,12 +62,17 @@ public class Document : BaseEntity
         Status = DocumentStatus.Active;
     }
 
-    public void UpdateInformation(string title, string description)
+    public void UpdateInformation(
+        string title,
+        string description,
+        Guid categoryId)
     {
         Guard.AgainstNullOrWhiteSpace(title, nameof(title));
+        Guard.AgainstEmptyGuid(categoryId, nameof(categoryId));
 
         Title = title.Trim();
         Description = description.Trim();
+        CategoryId = categoryId;
 
         SetUpdated();
     }
