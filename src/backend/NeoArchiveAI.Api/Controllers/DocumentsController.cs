@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Documents;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
+using NeoArchiveAI.Application.Documents.Commands.DeleteDocument;
 using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
 using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
@@ -13,17 +14,20 @@ public class DocumentsController : ControllerBase
 {
     private readonly CreateDocumentHandler _createHandler;
     private readonly UpdateDocumentHandler _updateHandler;
+    private readonly DeleteDocumentHandler _deleteHandler;
     private readonly GetDocumentByIdHandler _getByIdHandler;
     private readonly GetDocumentsHandler _getDocumentsHandler;
 
     public DocumentsController(
         CreateDocumentHandler createHandler,
         UpdateDocumentHandler updateHandler,
+        DeleteDocumentHandler deleteHandler,
         GetDocumentByIdHandler getByIdHandler,
         GetDocumentsHandler getDocumentsHandler)
     {
         _createHandler = createHandler;
         _updateHandler = updateHandler;
+        _deleteHandler = deleteHandler;
         _getByIdHandler = getByIdHandler;
         _getDocumentsHandler = getDocumentsHandler;
     }
@@ -100,6 +104,25 @@ public class DocumentsController : ControllerBase
             cancellationToken);
 
         if (!updated)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteDocumentCommand(id);
+
+        var deleted = await _deleteHandler.Handle(
+            command,
+            cancellationToken);
+
+        if (!deleted)
         {
             return NotFound();
         }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NeoArchiveAI.Application.Abstractions.Persistence;
 using NeoArchiveAI.Domain.Entities;
+using NeoArchiveAI.Domain.Enums;
 using NeoArchiveAI.Infrastructure.Persistence.Contexts;
 
 namespace NeoArchiveAI.Infrastructure.Repositories;
@@ -17,12 +18,15 @@ public class DocumentRepository : IDocumentRepository
     public async Task<Document?> GetByIdAsync(Guid id)
     {
         return await _context.Documents
-            .FirstOrDefaultAsync(x => x.Id == id);
+            .FirstOrDefaultAsync(x =>
+                x.Id == id &&
+                x.Status != DocumentStatus.Deleted);
     }
 
     public async Task<IReadOnlyList<Document>> GetAllAsync()
     {
         return await _context.Documents
+            .Where(x => x.Status != DocumentStatus.Deleted)
             .AsNoTracking()
             .ToListAsync();
     }

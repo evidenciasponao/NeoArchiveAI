@@ -33,7 +33,7 @@
 
 # CU-005 Eliminar Documento
 
-- [ ] Pendiente
+- [x] Completado
 
 # CU-006 Categorías
 

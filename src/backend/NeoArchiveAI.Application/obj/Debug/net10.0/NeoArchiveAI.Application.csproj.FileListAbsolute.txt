@@ -13,3 +13,4 @@
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Application/obj/Debug/net10.0/refint/NeoArchiveAI.Application.dll
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Application/obj/Debug/net10.0/NeoArchiveAI.Application.pdb
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Application/obj/Debug/net10.0/ref/NeoArchiveAI.Application.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Application/obj/Debug/net10.0/NeoArchiveAI.Application.sourcelink.json

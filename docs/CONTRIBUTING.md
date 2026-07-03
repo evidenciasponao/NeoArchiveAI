@@ -1,15 +1,56 @@
-¿Cómo crear un Caso de Uso?
+CU
+
+↓
 
 1 Crear carpeta
-2 Crear Command
-3 Crear Validator
-4 Crear Handler
+
+↓
+
+2 Command
+
+↓
+
+3 Validator
+
+↓
+
+4 Handler
+
+↓
+
 5 Registrar DI
-6 Crear Request (API)
-7 Crear Controller
-8 Swagger
-9 PostgreSQL
-10 Commit
+
+↓
+
+6 Request (si aplica)
+
+↓
+
+7 Controller
+
+↓
+
+8 Compilar
+
+↓
+
+9 Swagger
+
+↓
+
+10 PostgreSQL
+
+↓
+
+11 Commit
+
+↓
+
+12 Push
+
+↓
+
+13 Roadmap
 
 
 A partir de CU-005 trabajaremos así:

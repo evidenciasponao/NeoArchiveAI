@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
+using NeoArchiveAI.Application.Documents.Commands.DeleteDocument;
 using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
 using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
@@ -14,6 +15,7 @@ public static class ApplicationServiceCollectionExtensions
         // Commands
         services.AddScoped<CreateDocumentHandler>();
         services.AddScoped<UpdateDocumentHandler>();
+        services.AddScoped<DeleteDocumentHandler>();
 
         // Queries
         services.AddScoped<GetDocumentByIdHandler>();

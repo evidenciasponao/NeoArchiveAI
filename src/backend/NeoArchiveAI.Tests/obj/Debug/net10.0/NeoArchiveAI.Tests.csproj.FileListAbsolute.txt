@@ -93,3 +93,4 @@
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Tests/obj/Debug/net10.0/NeoArchiveAI.Tests.pdb
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Tests/obj/Debug/net10.0/NeoArchiveAI.Tests.genruntimeconfig.cache
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Tests/obj/Debug/net10.0/ref/NeoArchiveAI.Tests.dll
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Tests/obj/Debug/net10.0/NeoArchiveAI.Tests.sourcelink.json
