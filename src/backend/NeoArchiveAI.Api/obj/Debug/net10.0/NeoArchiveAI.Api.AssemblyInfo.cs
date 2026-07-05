@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeoArchiveAI.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bebf691c8d2d229d541dbe93c09745decfa8325")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cacbc9cbb760efdd2ed1c477c68606b080ce8a22")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeoArchiveAI.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeoArchiveAI.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
