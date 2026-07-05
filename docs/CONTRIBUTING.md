@@ -1,56 +1,34 @@
-CU
+Nuevo Caso de Uso
 
 ↓
 
 1 Crear carpeta
 
-↓
-
-2 Command
-
-↓
+2 Command / Query
 
 3 Validator
 
-↓
+4 Response (si aplica)
 
-4 Handler
+5 Handler
 
-↓
+6 Registrar DI
 
-5 Registrar DI
+7 Request (si aplica)
 
-↓
+8 Controller
 
-6 Request (si aplica)
+9 Compilar
 
-↓
+10 Swagger
 
-7 Controller
+11 PostgreSQL
 
-↓
+12 Commit
 
-8 Compilar
+13 Push
 
-↓
-
-9 Swagger
-
-↓
-
-10 PostgreSQL
-
-↓
-
-11 Commit
-
-↓
-
-12 Push
-
-↓
-
-13 Roadmap
+14 Roadmap
 
 
 A partir de CU-005 trabajaremos así:

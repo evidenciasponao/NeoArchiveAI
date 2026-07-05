@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Categories;
 using NeoArchiveAI.Application.Categories.Commands.CreateCategory;
+using NeoArchiveAI.Application.Categories.Commands.DeleteCategory;
 using NeoArchiveAI.Application.Categories.Commands.UpdateCategory;
 using NeoArchiveAI.Application.Categories.Queries.GetCategories;
 using NeoArchiveAI.Application.Categories.Queries.GetCategoryById;
@@ -13,17 +14,20 @@ public class CategoriesController : ControllerBase
 {
     private readonly CreateCategoryHandler _createHandler;
     private readonly UpdateCategoryHandler _updateHandler;
+    private readonly DeleteCategoryHandler _deleteHandler;
     private readonly GetCategoriesHandler _getCategoriesHandler;
     private readonly GetCategoryByIdHandler _getCategoryByIdHandler;
 
     public CategoriesController(
         CreateCategoryHandler createHandler,
         UpdateCategoryHandler updateHandler,
+        DeleteCategoryHandler deleteHandler,
         GetCategoriesHandler getCategoriesHandler,
         GetCategoryByIdHandler getCategoryByIdHandler)
     {
         _createHandler = createHandler;
         _updateHandler = updateHandler;
+        _deleteHandler = deleteHandler;
         _getCategoriesHandler = getCategoriesHandler;
         _getCategoryByIdHandler = getCategoryByIdHandler;
     }
@@ -37,9 +41,7 @@ public class CategoriesController : ControllerBase
             request.Name,
             request.Description);
 
-        var response = await _createHandler.Handle(
-            command,
-            cancellationToken);
+        var response = await _createHandler.Handle(command, cancellationToken);
 
         return Ok(response);
     }
@@ -48,10 +50,8 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetAll(
         CancellationToken cancellationToken)
     {
-        var query = new GetCategoriesQuery();
-
         var response = await _getCategoriesHandler.Handle(
-            query,
+            new GetCategoriesQuery(),
             cancellationToken);
 
         return Ok(response);
@@ -62,10 +62,8 @@ public class CategoriesController : ControllerBase
         Guid id,
         CancellationToken cancellationToken)
     {
-        var query = new GetCategoryByIdQuery(id);
-
         var response = await _getCategoryByIdHandler.Handle(
-            query,
+            new GetCategoryByIdQuery(id),
             cancellationToken);
 
         if (response is null)
@@ -88,6 +86,25 @@ public class CategoriesController : ControllerBase
             request.Description);
 
         var response = await _updateHandler.Handle(
+            command,
+            cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(response);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteCategoryCommand(id);
+
+        var response = await _deleteHandler.Handle(
             command,
             cancellationToken);
 

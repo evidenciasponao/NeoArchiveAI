@@ -24,6 +24,7 @@ public static class InfrastructureServiceCollectionExtensions
 
         // Repositories
         services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         // Services
         services.AddScoped<IFileStorageService, LocalFileStorageService>();

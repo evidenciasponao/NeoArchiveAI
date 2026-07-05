@@ -1,4 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
+using NeoArchiveAI.Application.Categories.Commands.CreateCategory;
+using NeoArchiveAI.Application.Categories.Commands.DeleteCategory;
+using NeoArchiveAI.Application.Categories.Commands.UpdateCategory;
+using NeoArchiveAI.Application.Categories.Queries.GetCategories;
+using NeoArchiveAI.Application.Categories.Queries.GetCategoryById;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
 using NeoArchiveAI.Application.Documents.Commands.DeleteDocument;
 using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
@@ -12,12 +17,18 @@ public static class ApplicationServiceCollectionExtensions
     public static IServiceCollection AddApplication(
         this IServiceCollection services)
     {
-        // Commands
+        // Categories
+        services.AddScoped<CreateCategoryHandler>();
+        services.AddScoped<UpdateCategoryHandler>();
+        services.AddScoped<DeleteCategoryHandler>();
+        services.AddScoped<GetCategoriesHandler>();
+        services.AddScoped<GetCategoryByIdHandler>();
+
+        // Documents
         services.AddScoped<CreateDocumentHandler>();
         services.AddScoped<UpdateDocumentHandler>();
         services.AddScoped<DeleteDocumentHandler>();
 
-        // Queries
         services.AddScoped<GetDocumentByIdHandler>();
         services.AddScoped<GetDocumentsHandler>();
 

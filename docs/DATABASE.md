@@ -24,6 +24,10 @@ Consultar documentos
 
 SELECT * FROM "Documents";
 
+Consultar categorias
+
+SELECT * FROM "Categories";
+
 Salir
 
 \q
