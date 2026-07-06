@@ -131,3 +131,4 @@
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Api/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Api/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Api/obj/Debug/net10.0/NeoArchiveAI.Api.sourcelink.json
+/home/master/projects/NeoArchiveAI/src/backend/NeoArchiveAI.Api/bin/Debug/net10.0/BCrypt-Net-Next.dll

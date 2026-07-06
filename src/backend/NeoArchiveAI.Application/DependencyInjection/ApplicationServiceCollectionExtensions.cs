@@ -9,6 +9,7 @@ using NeoArchiveAI.Application.Documents.Commands.DeleteDocument;
 using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
 using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
+using NeoArchiveAI.Application.Users.Commands.CreateUser;
 
 namespace NeoArchiveAI.Application.DependencyInjection;
 
@@ -28,9 +29,12 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<CreateDocumentHandler>();
         services.AddScoped<UpdateDocumentHandler>();
         services.AddScoped<DeleteDocumentHandler>();
-
         services.AddScoped<GetDocumentByIdHandler>();
         services.AddScoped<GetDocumentsHandler>();
+
+        // Users
+        services.AddScoped<CreateUserValidator>();
+        services.AddScoped<CreateUserHandler>();
 
         return services;
     }

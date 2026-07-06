@@ -20,13 +20,13 @@ public class DocumentRepository : IDocumentRepository
         return await _context.Documents
             .FirstOrDefaultAsync(x =>
                 x.Id == id &&
-                x.Status != DocumentStatus.Deleted);
+                x.Status != EntityStatus.Deleted);
     }
 
     public async Task<IReadOnlyList<Document>> GetAllAsync()
     {
         return await _context.Documents
-            .Where(x => x.Status != DocumentStatus.Deleted)
+            .Where(x => x.Status != EntityStatus.Deleted)
             .AsNoTracking()
             .ToListAsync();
     }

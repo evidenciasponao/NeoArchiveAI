@@ -25,10 +25,12 @@ public static class InfrastructureServiceCollectionExtensions
         // Repositories
         services.AddScoped<IDocumentRepository, DocumentRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         // Services
         services.AddScoped<IFileStorageService, LocalFileStorageService>();
         services.AddScoped<IHashService, Sha256HashService>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         // Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

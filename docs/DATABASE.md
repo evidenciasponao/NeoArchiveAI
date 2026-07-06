@@ -36,3 +36,18 @@ Cómo consultar tablas.
 Cómo hacer backups.
 Cómo restaurar la base.
 Comandos útiles.
+
+
+# Crear migración
+cd src/backend/NeoArchiveAI.Infrastructure
+
+dotnet ef migrations add NombreMigracion \
+    --startup-project ../NeoArchiveAI.Api
+
+# Aplicar migraciones
+dotnet ef database update \
+    --startup-project ../NeoArchiveAI.Api
+
+# Eliminar última migración (si aún no se aplicó)
+dotnet ef migrations remove \
+    --startup-project ../NeoArchiveAI.Api

@@ -25,7 +25,9 @@ public class Document : BaseEntity
 
     public Guid UploadedBy { get; private set; }
 
-    public DocumentStatus Status { get; private set; }
+    public EntityStatus Status { get; private set; }
+
+    public bool IsArchived { get; private set; }
 
     private Document()
     {
@@ -59,7 +61,9 @@ public class Document : BaseEntity
         Hash = hash.Trim();
         CategoryId = categoryId;
         UploadedBy = uploadedBy;
-        Status = DocumentStatus.Active;
+
+        Status = EntityStatus.Active;
+        IsArchived = false;
     }
 
     public void UpdateInformation(
@@ -79,30 +83,30 @@ public class Document : BaseEntity
 
     public void Archive()
     {
-        if (Status == DocumentStatus.Archived)
+        if (IsArchived)
             return;
 
-        Status = DocumentStatus.Archived;
+        IsArchived = true;
 
         SetUpdated();
     }
 
     public void Restore()
     {
-        if (Status == DocumentStatus.Active)
+        if (!IsArchived)
             return;
 
-        Status = DocumentStatus.Active;
+        IsArchived = false;
 
         SetUpdated();
     }
 
     public void Delete()
     {
-        if (Status == DocumentStatus.Deleted)
+        if (Status == EntityStatus.Deleted)
             return;
 
-        Status = DocumentStatus.Deleted;
+        Status = EntityStatus.Deleted;
 
         SetUpdated();
     }

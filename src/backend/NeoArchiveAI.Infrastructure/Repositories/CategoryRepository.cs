@@ -20,13 +20,13 @@ public class CategoryRepository : ICategoryRepository
         return await _context.Categories
             .FirstOrDefaultAsync(x =>
                 x.Id == id &&
-                x.Status != DocumentStatus.Deleted);
+                x.Status != EntityStatus.Deleted);
     }
 
     public async Task<IReadOnlyList<Category>> GetAllAsync()
     {
         return await _context.Categories
-            .Where(x => x.Status != DocumentStatus.Deleted)
+            .Where(x => x.Status != EntityStatus.Deleted)
             .AsNoTracking()
             .ToListAsync();
     }
