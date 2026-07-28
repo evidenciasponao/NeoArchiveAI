@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Users;
 using NeoArchiveAI.Application.Users.Commands.CreateUser;
+using NeoArchiveAI.Application.Users.Commands.DeleteUser;
 using NeoArchiveAI.Application.Users.Commands.UpdateUser;
 using NeoArchiveAI.Application.Users.Queries.GetUserById;
 using NeoArchiveAI.Application.Users.Queries.GetUsers;
@@ -13,17 +14,20 @@ public sealed class UsersController : ControllerBase
 {
     private readonly CreateUserHandler _createUserHandler;
     private readonly UpdateUserHandler _updateUserHandler;
+    private readonly DeleteUserHandler _deleteUserHandler;
     private readonly GetUsersHandler _getUsersHandler;
     private readonly GetUserByIdHandler _getUserByIdHandler;
 
     public UsersController(
         CreateUserHandler createUserHandler,
         UpdateUserHandler updateUserHandler,
+        DeleteUserHandler deleteUserHandler,
         GetUsersHandler getUsersHandler,
         GetUserByIdHandler getUserByIdHandler)
     {
         _createUserHandler = createUserHandler;
         _updateUserHandler = updateUserHandler;
+        _deleteUserHandler = deleteUserHandler;
         _getUsersHandler = getUsersHandler;
         _getUserByIdHandler = getUserByIdHandler;
     }
@@ -66,6 +70,20 @@ public sealed class UsersController : ControllerBase
             cancellationToken);
 
         return Ok(response);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteUserCommand(id);
+
+        await _deleteUserHandler.Handle(
+            command,
+            cancellationToken);
+
+        return NoContent();
     }
 
     [HttpGet]
