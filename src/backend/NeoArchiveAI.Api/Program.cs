@@ -1,5 +1,6 @@
-using NeoArchiveAI.Infrastructure.DependencyInjection;
+using NeoArchiveAI.Api.Middleware;
 using NeoArchiveAI.Application.DependencyInjection;
+using NeoArchiveAI.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,9 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+// Exception Middleware
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Development
 if (app.Environment.IsDevelopment())

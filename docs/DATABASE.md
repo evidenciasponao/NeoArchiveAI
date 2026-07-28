@@ -28,6 +28,8 @@ Consultar categorias
 
 SELECT * FROM "Categories";
 
+SELECT * FROM "Users";
+
 Salir
 
 \q

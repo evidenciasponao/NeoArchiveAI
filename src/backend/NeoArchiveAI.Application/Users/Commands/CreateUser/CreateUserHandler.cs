@@ -1,6 +1,6 @@
-using FluentValidation;
 using NeoArchiveAI.Application.Abstractions.Hashing;
 using NeoArchiveAI.Application.Abstractions.Persistence;
+using NeoArchiveAI.Application.Exceptions;
 using NeoArchiveAI.Domain.Entities;
 
 namespace NeoArchiveAI.Application.Users.Commands.CreateUser;
@@ -32,14 +32,20 @@ public sealed class CreateUserHandler
 
         if (!validation.IsValid)
         {
-            throw new ValidationException(validation.Errors);
+            var errors = validation.Errors
+                .GroupBy(x => x.PropertyName)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Select(x => x.ErrorMessage).ToArray());
+
+            throw new ValidationException(errors);
         }
 
         var existingUser = await _userRepository.GetByEmailAsync(command.Email);
 
         if (existingUser is not null)
         {
-            throw new InvalidOperationException(
+            throw new ConflictException(
                 $"The email '{command.Email}' is already registered.");
         }
 

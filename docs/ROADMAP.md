@@ -37,11 +37,11 @@
 
 # CU-006 Categorías
 
-- [ ] Pendiente
+- [x] Completado
 
 # CU-007 Usuarios
 
-- [ ] Pendiente
+- [x] Completado
 
 # CU-008 Autenticación
 

@@ -1,25 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Users;
 using NeoArchiveAI.Application.Users.Commands.CreateUser;
+using NeoArchiveAI.Application.Users.Commands.UpdateUser;
+using NeoArchiveAI.Application.Users.Queries.GetUserById;
+using NeoArchiveAI.Application.Users.Queries.GetUsers;
 
 namespace NeoArchiveAI.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
-public class UsersController : ControllerBase
+[Route("api/users")]
+public sealed class UsersController : ControllerBase
 {
-    private readonly CreateUserHandler _createHandler;
+    private readonly CreateUserHandler _createUserHandler;
+    private readonly UpdateUserHandler _updateUserHandler;
+    private readonly GetUsersHandler _getUsersHandler;
+    private readonly GetUserByIdHandler _getUserByIdHandler;
 
-    public UsersController(CreateUserHandler createHandler)
+    public UsersController(
+        CreateUserHandler createUserHandler,
+        UpdateUserHandler updateUserHandler,
+        GetUsersHandler getUsersHandler,
+        GetUserByIdHandler getUserByIdHandler)
     {
-        _createHandler = createHandler;
+        _createUserHandler = createUserHandler;
+        _updateUserHandler = updateUserHandler;
+        _getUsersHandler = getUsersHandler;
+        _getUserByIdHandler = getUserByIdHandler;
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create(
-        [FromBody] CreateUserRequest request,
+        CreateUserRequest request,
         CancellationToken cancellationToken)
     {
         var command = new CreateUserCommand(
@@ -28,13 +39,55 @@ public class UsersController : ControllerBase
             request.Email,
             request.Password);
 
-        var response = await _createHandler.Handle(
+        var response = await _createUserHandler.Handle(
             command,
             cancellationToken);
 
         return CreatedAtAction(
-            nameof(Create),
+            nameof(GetUserById),
             new { id = response.Id },
             response);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update(
+        Guid id,
+        UpdateUserRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = new UpdateUserCommand(
+            id,
+            request.FirstName,
+            request.LastName,
+            request.Email);
+
+        var response = await _updateUserHandler.Handle(
+            command,
+            cancellationToken);
+
+        return Ok(response);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetUsers(
+        CancellationToken cancellationToken)
+    {
+        var response = await _getUsersHandler.Handle(
+            new GetUsersQuery(),
+            cancellationToken);
+
+        return Ok(response);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetUserById(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var response = await _getUserByIdHandler.Handle(
+            new GetUserByIdQuery(id),
+            cancellationToken);
+
+        return Ok(response);
     }
 }

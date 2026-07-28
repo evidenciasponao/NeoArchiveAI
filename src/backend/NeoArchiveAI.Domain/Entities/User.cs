@@ -45,13 +45,16 @@ public class User : BaseEntity
 
     public void UpdateProfile(
         string firstName,
-        string lastName)
+        string lastName,
+        string email)
     {
         Guard.AgainstNullOrWhiteSpace(firstName, nameof(firstName));
         Guard.AgainstNullOrWhiteSpace(lastName, nameof(lastName));
+        Guard.AgainstNullOrWhiteSpace(email, nameof(email));
 
         FirstName = firstName.Trim();
         LastName = lastName.Trim();
+        Email = email.Trim().ToLowerInvariant();
 
         SetUpdated();
     }
