@@ -1,44 +1,64 @@
 # 📂 NeoArchiveAI
 
-> AI-powered Digital Document Management System built with **ASP.NET Core 10**, **Clean Architecture** and **PostgreSQL**.
+> **Enterprise-ready ASP.NET Core 10 backend template focused on AI-powered document management.**
 
-NeoArchiveAI is a modern backend application for digital document management. The project is being developed incrementally following **Clean Architecture**, **SOLID principles**, and a **Use Case driven** approach.
+NeoArchiveAI is a modern backend application built with **ASP.NET Core 10**, **Clean Architecture**, and **PostgreSQL**. The project follows **SOLID principles**, **Use Case-driven development**, and a modular architecture designed to be scalable, maintainable, and reusable for future enterprise applications.
 
 ---
 
-# 🚀 Features
+# 🚀 Current Status
 
-- ✅ Create Document
-- ✅ Get Document by Id
-- ✅ Get Documents
-- ✅ Update Document
-- ⏳ Delete Document
-- ⏳ Categories
-- ⏳ Users
-- ⏳ Authentication (JWT)
-- ⏳ OCR Integration
-- ⏳ Artificial Intelligence
+## ✅ Completed
+
+- Documents CRUD
+- Categories CRUD
+- Users CRUD
+- Clean Architecture
+- Repository Pattern
+- Unit of Work
+- FluentValidation
+- Global Exception Middleware
+- Soft Delete
+- Docker
+- PostgreSQL
+- Swagger / OpenAPI
+- BCrypt Password Hashing
+- Local Storage
+- SHA256 Hash Service
+
+## 🚧 In Progress
+
+- Authentication (JWT)
+
+## 📅 Planned
+
+- File Storage
+- OCR Integration
+- Artificial Intelligence
 
 ---
 
 # 🏗 Architecture
 
-The project follows **Clean Architecture**.
+The project follows **Clean Architecture** to keep business rules independent from frameworks and external services.
 
-```
-Presentation (API)
-        │
-        ▼
-Application
-        │
-        ▼
-Domain
-        │
-        ▼
-Infrastructure
-        │
-        ▼
-PostgreSQL
+```text
+                ASP.NET Core API
+                       │
+                       ▼
+               Application Layer
+        (Use Cases / Validation)
+                       │
+                       ▼
+                 Domain Layer
+       (Business Rules / Entities)
+                       │
+                       ▼
+            Infrastructure Layer
+   (EF Core / PostgreSQL / Storage)
+                       │
+                       ▼
+                  PostgreSQL
 ```
 
 ---
@@ -56,6 +76,11 @@ src/
     └── NeoArchiveAI.Infrastructure
 
 docs/
+├── ARCHITECTURE.md
+├── CONTRIBUTING.md
+├── DATABASE.md
+├── DOCKER.md
+└── ROADMAP.md
 ```
 
 ---
@@ -66,59 +91,119 @@ docs/
 - C#
 - Entity Framework Core
 - PostgreSQL
+- Docker
 - Swagger / OpenAPI
 - Clean Architecture
 - Repository Pattern
-- Unit of Work - 
+- Unit of Work
 - FluentValidation
+- BCrypt.Net
+- Soft Delete
 - Local Storage
 - SHA256 Hash Service
 
 ---
 
+# ✨ Architecture Highlights
+
+- ✅ Clean Architecture
+- ✅ SOLID Principles
+- ✅ Repository Pattern
+- ✅ Unit of Work
+- ✅ Dependency Injection
+- ✅ Global Exception Middleware
+- ✅ FluentValidation
+- ✅ Soft Delete
+- ✅ Docker Ready
+- ✅ PostgreSQL
+- ✅ Swagger / OpenAPI
+
+---
+
 # 📚 Documentation
 
-The project documentation is organized into dedicated files.
+Project documentation is organized into dedicated files.
 
 | Document | Description |
 |----------|-------------|
 | ARCHITECTURE.md | System architecture |
-| DATABASE.md | Database design |
+| DATABASE.md | Database structure and queries |
 | ROADMAP.md | Development roadmap |
-| DOCKER.md | Docker deployment |
-| CONTRIBUTING.md | Contribution guide |
+| DOCKER.md | Docker configuration |
+| CONTRIBUTING.md | Development guidelines |
+
+---
+
+# 📊 Project Progress
+
+| Module | Status |
+|----------|:------:|
+| Infrastructure | ✅ Complete |
+| Documents | ✅ Complete |
+| Categories | ✅ Complete |
+| Users | ✅ Complete |
+| Authentication | 🚧 In Progress |
+| File Storage | ⏳ Planned |
+| OCR | ⏳ Planned |
+| Artificial Intelligence | ⏳ Planned |
 
 ---
 
 # 📌 Development Roadmap
 
-## Architecture
+## Foundation
 
-- ✅ Solution
-- ✅ Domain
-- ✅ Application
-- ✅ Infrastructure
-- ✅ API
-- ✅ PostgreSQL
-- ✅ Entity Framework Core
+- ✅ Clean Architecture
+- ✅ Dependency Injection
 - ✅ Repository Pattern
 - ✅ Unit of Work
-- ✅ Local Storage
-- ✅ Hash Service
+- ✅ PostgreSQL
+- ✅ Entity Framework Core
+- ✅ Docker
 - ✅ Swagger
+- ✅ FluentValidation
+- ✅ Exception Middleware
+- ✅ Local Storage
+- ✅ SHA256 Hash Service
 
-## Use Cases
+## Modules
 
-- ✅ CU-001 Create Document
-- ✅ CU-002 Get Document
-- ✅ CU-003 Get Documents
-- ✅ CU-004 Update Document
-- ⏳ CU-005 Delete Document
-- ⏳ CU-006 Categories
-- ⏳ CU-007 Users
-- ⏳ CU-008 Authentication
-- ⏳ CU-009 OCR
-- ⏳ CU-010 Artificial Intelligence
+### Documents
+
+- ✅ Create Document
+- ✅ Get Document
+- ✅ Get Documents
+- ✅ Update Document
+- ✅ Delete Document
+
+### Categories
+
+- ✅ Create Category
+- ✅ Get Category
+- ✅ Get Categories
+- ✅ Update Category
+- ✅ Delete Category
+
+### Users
+
+- ✅ Create User
+- ✅ Get User
+- ✅ Get Users
+- ✅ Update User
+- ✅ Delete User
+
+### Authentication
+
+- 🚧 Login
+- ⏳ JWT
+- ⏳ Authorization
+- ⏳ Refresh Token
+
+### Future Modules
+
+- ⏳ File Storage
+- ⏳ OCR Integration
+- ⏳ Artificial Intelligence
 
 ---
 
@@ -136,7 +221,7 @@ Go to the project.
 cd NeoArchiveAI
 ```
 
-Restore packages.
+Restore dependencies.
 
 ```bash
 dotnet restore
@@ -150,7 +235,7 @@ dotnet run --project src/backend/NeoArchiveAI.Api
 
 ---
 
-# 🧪 API
+# 🧪 API Documentation
 
 Swagger is enabled during development.
 
@@ -166,25 +251,47 @@ http://localhost:5000/swagger
 
 ---
 
-# 👨‍💻 Development Workflow
+# 🔄 Development Workflow
 
-Every feature is developed following this process:
+Every feature is implemented following the same workflow.
 
-```
-Analyze
-    ↓
-Design
-    ↓
+```text
+Requirement
+      │
+      ▼
+Architecture
+      │
+      ▼
 Implementation
-    ↓
-Compilation
-    ↓
+      │
+      ▼
+Build
+      │
+      ▼
 Swagger Testing
-    ↓
+      │
+      ▼
 PostgreSQL Verification
-    ↓
+      │
+      ▼
 Git Commit
 ```
+
+---
+
+# 🎯 Design Principles
+
+The project is built around the following principles:
+
+- Clean Architecture
+- SOLID
+- Separation of Concerns
+- Dependency Inversion
+- Use Case Driven Development
+- Domain-Centric Design
+- Maintainability
+- Scalability
+- Testability
 
 ---
 
