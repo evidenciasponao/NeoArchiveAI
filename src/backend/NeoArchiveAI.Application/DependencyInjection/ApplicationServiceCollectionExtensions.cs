@@ -10,6 +10,7 @@ using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
 using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
 using NeoArchiveAI.Application.Users.Commands.CreateUser;
+using NeoArchiveAI.Application.Users.Commands.DeleteUser;
 using NeoArchiveAI.Application.Users.Commands.UpdateUser;
 using NeoArchiveAI.Application.Users.Queries.GetUserById;
 using NeoArchiveAI.Application.Users.Queries.GetUsers;
@@ -41,6 +42,8 @@ public static class ApplicationServiceCollectionExtensions
 
         services.AddScoped<UpdateUserValidator>();
         services.AddScoped<UpdateUserHandler>();
+
+        services.AddScoped<DeleteUserHandler>();
 
         services.AddScoped<GetUsersHandler>();
         services.AddScoped<GetUserByIdHandler>();
