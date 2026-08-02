@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Categories;
 using NeoArchiveAI.Application.Categories.Commands.CreateCategory;
@@ -8,6 +9,7 @@ using NeoArchiveAI.Application.Categories.Queries.GetCategoryById;
 
 namespace NeoArchiveAI.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class CategoriesController : ControllerBase
@@ -41,7 +43,9 @@ public class CategoriesController : ControllerBase
             request.Name,
             request.Description);
 
-        var response = await _createHandler.Handle(command, cancellationToken);
+        var response = await _createHandler.Handle(
+            command,
+            cancellationToken);
 
         return Ok(response);
     }

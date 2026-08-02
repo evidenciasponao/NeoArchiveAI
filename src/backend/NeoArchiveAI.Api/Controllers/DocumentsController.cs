@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Documents;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
@@ -8,6 +9,7 @@ using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
 
 namespace NeoArchiveAI.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class DocumentsController : ControllerBase

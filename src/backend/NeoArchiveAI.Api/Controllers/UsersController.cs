@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NeoArchiveAI.Api.Requests.Users;
 using NeoArchiveAI.Application.Users.Commands.CreateUser;
@@ -8,6 +9,7 @@ using NeoArchiveAI.Application.Users.Queries.GetUsers;
 
 namespace NeoArchiveAI.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/users")]
 public sealed class UsersController : ControllerBase
