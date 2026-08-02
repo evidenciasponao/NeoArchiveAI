@@ -71,7 +71,30 @@ public class DocumentsController : ControllerBase
         [FromForm] CreateDocumentRequest request,
         CancellationToken cancellationToken)
     {
+        Console.WriteLine("========================================");
+        Console.WriteLine("CREATE DOCUMENT");
+        Console.WriteLine("========================================");
+
+        Console.WriteLine($"HasFormContentType: {Request.HasFormContentType}");
+
+        if (request.File == null)
+        {
+            Console.WriteLine("ERROR: request.File es NULL");
+            return BadRequest("El archivo no llegó.");
+        }
+
+        Console.WriteLine($"FileName: {request.File.FileName}");
+        Console.WriteLine($"ContentType: {request.File.ContentType}");
+        Console.WriteLine($"Length: {request.File.Length}");
+
+        Console.WriteLine($"Title: {request.Title}");
+        Console.WriteLine($"Description: {request.Description}");
+        Console.WriteLine($"CategoryId: {request.CategoryId}");
+        Console.WriteLine($"UploadedBy: {request.UploadedBy}");
+
         using var stream = request.File.OpenReadStream();
+
+        Console.WriteLine("Stream abierto correctamente.");
 
         var command = new CreateDocumentCommand(
             stream,
@@ -82,9 +105,13 @@ public class DocumentsController : ControllerBase
             request.CategoryId,
             request.UploadedBy);
 
+        Console.WriteLine("Enviando al Handler...");
+
         var response = await _createHandler.Handle(
             command,
             cancellationToken);
+
+        Console.WriteLine("Documento creado correctamente.");
 
         return Ok(response);
     }

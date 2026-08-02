@@ -18,12 +18,11 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// JWT Configuration
+// JWT
 var jwtOptions = builder.Configuration
     .GetSection(JwtOptions.SectionName)
     .Get<JwtOptions>()!;
 
-// Authentication
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -43,7 +42,6 @@ builder.Services
         };
     });
 
-// Authorization
 builder.Services.AddAuthorization();
 
 // Application
@@ -54,28 +52,22 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-// Exception Middleware
+// Middleware
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Development
 if (app.Environment.IsDevelopment())
 {
-    // OpenAPI JSON
     app.MapOpenApi();
 
-    // Swagger JSON
     app.UseSwagger();
 
-    // Swagger UI
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
-// Authentication
 app.UseAuthentication();
 
-// Authorization
 app.UseAuthorization();
 
 app.MapControllers();
