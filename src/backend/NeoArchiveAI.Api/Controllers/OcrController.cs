@@ -6,7 +6,7 @@ namespace NeoArchiveAI.Api.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("api/ocr")]
+[Route("api/[controller]")]
 public sealed class OcrController : ControllerBase
 {
     private readonly ExtractTextHandler _extractTextHandler;
@@ -17,7 +17,7 @@ public sealed class OcrController : ControllerBase
         _extractTextHandler = extractTextHandler;
     }
 
-    [HttpPost("extract/{documentId:guid}")]
+    [HttpPost("{documentId:guid}")]
     public async Task<IActionResult> ExtractText(
         Guid documentId,
         CancellationToken cancellationToken)
