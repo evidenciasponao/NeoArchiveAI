@@ -4,6 +4,7 @@ using NeoArchiveAI.Api.Requests.Documents;
 using NeoArchiveAI.Application.Documents.Commands.CreateDocument;
 using NeoArchiveAI.Application.Documents.Commands.DeleteDocument;
 using NeoArchiveAI.Application.Documents.Commands.UpdateDocument;
+using NeoArchiveAI.Application.Documents.Queries.DownloadDocument;
 using NeoArchiveAI.Application.Documents.Queries.GetDocumentById;
 using NeoArchiveAI.Application.Documents.Queries.GetDocuments;
 
@@ -19,19 +20,22 @@ public class DocumentsController : ControllerBase
     private readonly DeleteDocumentHandler _deleteHandler;
     private readonly GetDocumentByIdHandler _getByIdHandler;
     private readonly GetDocumentsHandler _getDocumentsHandler;
+    private readonly DownloadDocumentHandler _downloadHandler;
 
     public DocumentsController(
         CreateDocumentHandler createHandler,
         UpdateDocumentHandler updateHandler,
         DeleteDocumentHandler deleteHandler,
         GetDocumentByIdHandler getByIdHandler,
-        GetDocumentsHandler getDocumentsHandler)
+        GetDocumentsHandler getDocumentsHandler,
+        DownloadDocumentHandler downloadHandler)
     {
         _createHandler = createHandler;
         _updateHandler = updateHandler;
         _deleteHandler = deleteHandler;
         _getByIdHandler = getByIdHandler;
         _getDocumentsHandler = getDocumentsHandler;
+        _downloadHandler = downloadHandler;
     }
 
     [HttpGet]
@@ -66,6 +70,28 @@ public class DocumentsController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("{id:guid}/download")]
+    public async Task<IActionResult> Download(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new DownloadDocumentQuery(id);
+
+        var response = await _downloadHandler.Handle(
+            query,
+            cancellationToken);
+
+        if (response is null)
+        {
+            return NotFound();
+        }
+
+        return File(
+            response.Content,
+            response.ContentType,
+            response.FileName);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromForm] CreateDocumentRequest request,
@@ -94,8 +120,6 @@ public class DocumentsController : ControllerBase
 
         using var stream = request.File.OpenReadStream();
 
-        Console.WriteLine("Stream abierto correctamente.");
-
         var command = new CreateDocumentCommand(
             stream,
             request.File.FileName,
@@ -105,13 +129,9 @@ public class DocumentsController : ControllerBase
             request.CategoryId,
             request.UploadedBy);
 
-        Console.WriteLine("Enviando al Handler...");
-
         var response = await _createHandler.Handle(
             command,
             cancellationToken);
-
-        Console.WriteLine("Documento creado correctamente.");
 
         return Ok(response);
     }
