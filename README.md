@@ -1,8 +1,8 @@
 # 📂 NeoArchiveAI
 
-> **Enterprise-ready ASP.NET Core 10 backend template focused on AI-powered document management.**
+> **Enterprise-ready Intelligent Document Management Backend built with ASP.NET Core 10, Clean Architecture and PostgreSQL.**
 
-NeoArchiveAI is a modern backend application built with **ASP.NET Core 10**, **Clean Architecture**, and **PostgreSQL**. The project follows **SOLID principles**, **Use Case-driven development**, and a modular architecture designed to be scalable, maintainable, and reusable for future enterprise applications.
+NeoArchiveAI is a backend application designed for intelligent document management systems. The project follows **Clean Architecture**, **SOLID principles**, and a **Use Case-driven** approach to build scalable, maintainable and reusable enterprise applications.
 
 ---
 
@@ -10,55 +10,75 @@ NeoArchiveAI is a modern backend application built with **ASP.NET Core 10**, **C
 
 ## ✅ Completed
 
-- Documents CRUD
-- Categories CRUD
-- Users CRUD
 - Clean Architecture
+- ASP.NET Core 10
+- PostgreSQL
+- Entity Framework Core
 - Repository Pattern
 - Unit of Work
+- Dependency Injection
 - FluentValidation
 - Global Exception Middleware
-- Soft Delete
-- Docker
-- PostgreSQL
-- Swagger / OpenAPI
-- BCrypt Password Hashing
 - Local Storage
 - SHA256 Hash Service
 
-## 🚧 In Progress
+### Documents
 
-- Authentication (JWT)
+- Upload Document
+- Download Document
+- Documents CRUD
 
-## 📅 Planned
+### Categories
 
-- File Storage
-- OCR Integration
-- Artificial Intelligence
+- CRUD
+
+### Users
+
+- CRUD
+
+### Authentication
+
+- JWT Authentication
+- Authorization
+
+### OCR
+
+- Tesseract Integration
+- Text Extraction
+- ExtractedText Persistence
+
+---
+
+## 🚧 Next Modules
+
+- OpenAI Integration
+- Intelligent Search
+- Angular Frontend
 
 ---
 
 # 🏗 Architecture
 
-The project follows **Clean Architecture** to keep business rules independent from frameworks and external services.
+The project follows **Clean Architecture**.
 
 ```text
-                ASP.NET Core API
-                       │
-                       ▼
-               Application Layer
-        (Use Cases / Validation)
-                       │
-                       ▼
-                 Domain Layer
-       (Business Rules / Entities)
-                       │
-                       ▼
-            Infrastructure Layer
-   (EF Core / PostgreSQL / Storage)
-                       │
-                       ▼
-                  PostgreSQL
+                Clients
+          (Postman / Angular)
+                    │
+                    ▼
+              ASP.NET Core API
+                    │
+                    ▼
+        Application Layer (Use Cases)
+                    │
+                    ▼
+       Domain Layer (Business Rules)
+                    │
+                    ▼
+ Infrastructure (EF Core / Storage)
+                    │
+                    ▼
+              PostgreSQL
 ```
 
 ---
@@ -92,45 +112,33 @@ docs/
 - Entity Framework Core
 - PostgreSQL
 - Docker
-- Swagger / OpenAPI
-- Clean Architecture
-- Repository Pattern
-- Unit of Work
+- JWT Authentication
+- Tesseract OCR
 - FluentValidation
 - BCrypt.Net
-- Soft Delete
 - Local Storage
-- SHA256 Hash Service
+- SHA256
+- Clean Architecture
 
 ---
 
-# ✨ Architecture Highlights
+# ✨ Implemented Features
 
 - ✅ Clean Architecture
-- ✅ SOLID Principles
 - ✅ Repository Pattern
 - ✅ Unit of Work
 - ✅ Dependency Injection
-- ✅ Global Exception Middleware
-- ✅ FluentValidation
-- ✅ Soft Delete
-- ✅ Docker Ready
+- ✅ JWT Authentication
+- ✅ Users CRUD
+- ✅ Categories CRUD
+- ✅ Documents CRUD
+- ✅ Document Upload
+- ✅ Document Download
+- ✅ Local Storage
+- ✅ SHA256 Hash
+- ✅ OCR Extraction
 - ✅ PostgreSQL
-- ✅ Swagger / OpenAPI
-
----
-
-# 📚 Documentation
-
-Project documentation is organized into dedicated files.
-
-| Document | Description |
-|----------|-------------|
-| ARCHITECTURE.md | System architecture |
-| DATABASE.md | Database structure and queries |
-| ROADMAP.md | Development roadmap |
-| DOCKER.md | Docker configuration |
-| CONTRIBUTING.md | Development guidelines |
+- ✅ Docker
 
 ---
 
@@ -138,72 +146,28 @@ Project documentation is organized into dedicated files.
 
 | Module | Status |
 |----------|:------:|
-| Infrastructure | ✅ Complete |
-| Documents | ✅ Complete |
-| Categories | ✅ Complete |
-| Users | ✅ Complete |
-| Authentication | 🚧 In Progress |
-| File Storage | ⏳ Planned |
-| OCR | ⏳ Planned |
-| Artificial Intelligence | ⏳ Planned |
+| Architecture | ✅ |
+| Documents | ✅ |
+| Categories | ✅ |
+| Users | ✅ |
+| Authentication | ✅ |
+| Local Storage | ✅ |
+| OCR | ✅ |
+| OpenAI | 🚧 |
+| Intelligent Search | 🚧 |
+| Angular Frontend | 🚧 |
 
 ---
 
-# 📌 Development Roadmap
+# 📚 Documentation
 
-## Foundation
-
-- ✅ Clean Architecture
-- ✅ Dependency Injection
-- ✅ Repository Pattern
-- ✅ Unit of Work
-- ✅ PostgreSQL
-- ✅ Entity Framework Core
-- ✅ Docker
-- ✅ Swagger
-- ✅ FluentValidation
-- ✅ Exception Middleware
-- ✅ Local Storage
-- ✅ SHA256 Hash Service
-
-## Modules
-
-### Documents
-
-- ✅ Create Document
-- ✅ Get Document
-- ✅ Get Documents
-- ✅ Update Document
-- ✅ Delete Document
-
-### Categories
-
-- ✅ Create Category
-- ✅ Get Category
-- ✅ Get Categories
-- ✅ Update Category
-- ✅ Delete Category
-
-### Users
-
-- ✅ Create User
-- ✅ Get User
-- ✅ Get Users
-- ✅ Update User
-- ✅ Delete User
-
-### Authentication
-
-- 🚧 Login
-- ⏳ JWT
-- ⏳ Authorization
-- ⏳ Refresh Token
-
-### Future Modules
-
-- ⏳ File Storage
-- ⏳ OCR Integration
-- ⏳ Artificial Intelligence
+| Document | Description |
+|----------|-------------|
+| ARCHITECTURE.md | System architecture |
+| DATABASE.md | Database documentation |
+| ROADMAP.md | Development roadmap |
+| DOCKER.md | Docker configuration |
+| CONTRIBUTING.md | Development guidelines |
 
 ---
 
@@ -235,25 +199,9 @@ dotnet run --project src/backend/NeoArchiveAI.Api
 
 ---
 
-# 🧪 API Documentation
-
-Swagger is enabled during development.
-
-```
-https://localhost:5001/swagger
-```
-
-or
-
-```
-http://localhost:5000/swagger
-```
-
----
-
 # 🔄 Development Workflow
 
-Every feature is implemented following the same workflow.
+Every feature follows the same workflow.
 
 ```text
 Requirement
@@ -268,7 +216,7 @@ Implementation
 Build
       │
       ▼
-Swagger Testing
+Postman Validation
       │
       ▼
 PostgreSQL Verification
@@ -281,17 +229,36 @@ Git Commit
 
 # 🎯 Design Principles
 
-The project is built around the following principles:
+The project is built around:
 
 - Clean Architecture
-- SOLID
+- SOLID Principles
 - Separation of Concerns
-- Dependency Inversion
+- Dependency Injection
+- Repository Pattern
+- Unit of Work
 - Use Case Driven Development
-- Domain-Centric Design
 - Maintainability
 - Scalability
-- Testability
+- Reusability
+
+---
+
+# 📌 Roadmap
+
+Current milestone:
+
+- ✅ Document Management
+- ✅ Authentication
+- ✅ OCR
+
+Next milestone:
+
+- 🚧 OpenAI Integration
+- 🚧 Intelligent Search
+- 🚧 Angular Frontend
+
+For more details, see **docs/ROADMAP.md**.
 
 ---
 
