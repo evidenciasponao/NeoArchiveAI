@@ -1,8 +1,8 @@
 # 🏛 ARCHITECTURE
 
 > **NeoArchiveAI Architecture Documentation**
->
-> This document explains the architecture of NeoArchiveAI, the responsibilities of each project, and the design patterns used throughout the solution.
+
+This document describes the architecture, project responsibilities and design principles used throughout NeoArchiveAI.
 
 ---
 
@@ -16,31 +16,27 @@
 - Dependency Injection
 - Repository Pattern
 - Unit of Work
-- Domain Layer
-- Application Layer
-- Infrastructure Layer
-- API Layer
-- Data Flow
+- Document Processing Pipeline
 - Design Principles
 - Benefits
-- Future Improvements
 
 ---
 
-# Overview
+# 📖 Overview
 
-NeoArchiveAI is built following **Clean Architecture** principles.
+NeoArchiveAI follows **Clean Architecture**.
 
-The primary objective is to separate business rules from infrastructure concerns, allowing the application to remain maintainable, testable, and scalable.
+The main objective is to keep business rules independent from frameworks, databases and external services.
 
-The architecture promotes:
+Current architecture includes:
 
-- Separation of Concerns
-- Dependency Inversion
-- SOLID Principles
-- Testability
-- Scalability
-- Maintainability
+- ASP.NET Core
+- PostgreSQL
+- Entity Framework Core
+- JWT Authentication
+- Local Storage
+- SHA256
+- OCR (Tesseract)
 
 ---
 
@@ -61,202 +57,150 @@ src/
 
 # 🧱 Clean Architecture
 
-The solution follows the classic Clean Architecture model.
-
 ```text
-                ASP.NET Core API
-                       │
-                       ▼
-                Application
-             (Use Cases)
-                       │
-                       ▼
-                  Domain
-            (Business Rules)
-                       │
-                       ▼
-              Infrastructure
-      (Database / Storage / Services)
-                       │
-                       ▼
-                 PostgreSQL
+                Clients
+          (Postman / Angular)
+
+                    │
+                    ▼
+
+             ASP.NET Core API
+
+                    │
+                    ▼
+
+        Application Layer
+     (Commands / Queries)
+
+                    │
+                    ▼
+
+          Domain Layer
+       (Business Rules)
+
+                    │
+                    ▼
+
+      Infrastructure Layer
+
+ ┌─────────────┬─────────────┬─────────────┐
+ │ PostgreSQL  │ LocalStorage│ Tesseract   │
+ └─────────────┴─────────────┴─────────────┘
 ```
 
-Dependency direction always points inward.
-
-```text
-API
- │
- ▼
-Application
- │
- ▼
-Domain
-
-Infrastructure ─────► Domain
-Infrastructure ─────► Application
-API ────────────────► Application
-```
-
-The Domain layer never depends on any external framework.
+Dependencies always point toward the Domain.
 
 ---
 
 # 📦 Project Responsibilities
 
-## NeoArchiveAI.Domain
+## Domain
 
-Contains the business model.
+Contains business rules.
 
 Responsibilities
 
 - Entities
 - Enums
-- Value Objects (future)
 - Business Rules
-
-Example
-
-```text
-User
-Category
-Document
-EntityStatus
-```
-
-The Domain layer contains no database or framework code.
 
 ---
 
-## NeoArchiveAI.Application
+## Application
 
-Contains all application use cases.
+Contains application use cases.
 
 Responsibilities
 
 - Commands
 - Queries
-- DTOs
-- Validators
 - Handlers
+- Validators
+- Responses
 - Interfaces
 
-Example
-
-```text
-CreateUser
-
-↓
-
-Validator
-
-↓
-
-Handler
-
-↓
-
-Repository Interface
-
-↓
-
-Response
-```
-
-Application defines WHAT should happen.
-
-It never knows HOW it happens.
+Application defines **what** the system does.
 
 ---
 
-## NeoArchiveAI.Infrastructure
+## Infrastructure
 
-Provides implementations for the Application layer.
+Contains implementations.
 
 Responsibilities
 
 - Entity Framework Core
 - PostgreSQL
-- Repositories
-- Unit of Work
+- Repository Pattern
+- Unit Of Work
 - Local Storage
-- Hash Services
-- External Services
+- SHA256 Hash Service
+- JWT Service
+- Password Hasher
+- OCR Service (Tesseract)
 
-Infrastructure knows how to access external resources.
+Infrastructure defines **how** operations are performed.
 
 ---
 
-## NeoArchiveAI.Api
+## API
 
 Application entry point.
 
 Responsibilities
 
 - Controllers
-- Dependency Injection
 - Middleware
+- Dependency Injection
+- Authentication
 - Swagger
-- Configuration
 
-Controllers should remain thin.
+Controllers remain thin.
 
-Business logic belongs in the Application layer.
+Business logic belongs in Application.
 
 ---
 
 # 🔄 Request Flow
 
-Every request follows the same pipeline.
+Every request follows the same structure.
 
 ```text
 HTTP Request
 
-        │
-
-        ▼
+↓
 
 Controller
 
-        │
-
-        ▼
+↓
 
 Command / Query
 
-        │
-
-        ▼
+↓
 
 Validator
 
-        │
-
-        ▼
+↓
 
 Handler
 
-        │
-
-        ▼
+↓
 
 Repository
 
-        │
+↓
 
-        ▼
+Storage / Services
 
-Unit of Work
+↓
 
-        │
+Unit Of Work
 
-        ▼
+↓
 
 PostgreSQL
 
-        │
-
-        ▼
+↓
 
 Response
 ```
@@ -266,10 +210,6 @@ Response
 # 💉 Dependency Injection
 
 NeoArchiveAI uses ASP.NET Core Dependency Injection.
-
-Handlers, repositories and services are registered during application startup.
-
-Example
 
 ```text
 Controller
@@ -287,7 +227,7 @@ Repository
 DbContext
 ```
 
-This approach keeps the application loosely coupled.
+All implementations are registered during application startup.
 
 ---
 
@@ -295,20 +235,16 @@ This approach keeps the application loosely coupled.
 
 Repositories abstract data access.
 
-Instead of querying Entity Framework directly, the Application layer communicates through repository interfaces.
-
-Example
-
 ```text
 Application
 
 ↓
 
-IUserRepository
+IDocumentRepository
 
 ↓
 
-UserRepository
+DocumentRepository
 
 ↓
 
@@ -319,25 +255,15 @@ Entity Framework Core
 PostgreSQL
 ```
 
-Benefits
-
-- Loose coupling
-- Easier testing
-- Better maintainability
+The Application layer never depends directly on Entity Framework.
 
 ---
 
 # 🔄 Unit of Work
 
-The Unit of Work coordinates all database operations within a single transaction.
-
-Example
+The Unit Of Work coordinates database transactions.
 
 ```text
-Create User
-
-↓
-
 Repository
 
 ↓
@@ -355,52 +281,48 @@ SaveChanges()
 
 Benefits
 
-- Transaction consistency
-- Single commit
+- Single transaction
+- Consistency
 - Better control
 
 ---
 
-# 🌊 Data Flow
+# 📄 Document Processing Pipeline
 
 ```text
-Client
+Upload Document
 
 ↓
 
-API
+SHA256
 
 ↓
 
-Application
+Local Storage
 
 ↓
 
-Domain
+PostgreSQL
 
 ↓
 
-Infrastructure
+Download
 
 ↓
 
-Database
+OCR (Tesseract)
 
 ↓
 
-Infrastructure
+ExtractedText
 
 ↓
 
-Application
+OpenAI (Next)
 
 ↓
 
-API
-
-↓
-
-Client
+Intelligent Search (Next)
 ```
 
 ---
@@ -410,10 +332,11 @@ Client
 NeoArchiveAI follows:
 
 - Clean Architecture
-- SOLID
+- SOLID Principles
 - Repository Pattern
-- Unit of Work
+- Unit Of Work
 - Dependency Injection
+- CQRS (Simple)
 - Separation of Concerns
 - Use Case Driven Development
 
@@ -421,36 +344,18 @@ NeoArchiveAI follows:
 
 # ✅ Benefits
 
-The current architecture provides:
+Current architecture provides:
 
-- Independent business rules
-- High maintainability
-- Scalability
-- Testability
-- Reusable components
 - Low coupling
 - High cohesion
+- Independent business rules
+- Testable use cases
+- Replaceable infrastructure services
+- Scalable architecture
+- Enterprise-ready foundation
 
 ---
 
-# 🚀 Future Improvements
+# 📄 Notes
 
-Planned architectural additions:
-
-- JWT Authentication
-- Refresh Tokens
-- Role-Based Authorization
-- File Storage
-- OCR
-- Artificial Intelligence
-- Background Services
-- Logging
-- Health Checks
-- Caching
-- Event Bus
-
----
-
-# 📄 License
-
-This document is part of the NeoArchiveAI project and evolves together with the architecture.
+This document evolves together with the architecture of NeoArchiveAI.

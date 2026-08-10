@@ -3,11 +3,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NeoArchiveAI.Application.Abstractions.Hashing;
 using NeoArchiveAI.Application.Abstractions.Persistence;
+using NeoArchiveAI.Application.Abstractions.Services;
 using NeoArchiveAI.Application.Abstractions.Storage;
+using NeoArchiveAI.Infrastructure.AI.Clients;
+using NeoArchiveAI.Infrastructure.Configuration;
 using NeoArchiveAI.Infrastructure.Hashing;
 using NeoArchiveAI.Infrastructure.Persistence;
 using NeoArchiveAI.Infrastructure.Persistence.Contexts;
 using NeoArchiveAI.Infrastructure.Repositories;
+using NeoArchiveAI.Infrastructure.Services;
 using NeoArchiveAI.Infrastructure.Storage;
 
 namespace NeoArchiveAI.Infrastructure.DependencyInjection;
@@ -22,6 +26,18 @@ public static class InfrastructureServiceCollectionExtensions
             options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection")));
 
+        // JWT
+        services.Configure<JwtOptions>(
+            configuration.GetSection(JwtOptions.SectionName));
+
+        // OCR
+        services.Configure<OcrOptions>(
+            configuration.GetSection(OcrOptions.SectionName));
+
+        // AI
+        services.Configure<AiOptions>(
+            configuration.GetSection(AiOptions.SectionName));
+
         // Repositories
         services.AddScoped<IDocumentRepository, DocumentRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -31,6 +47,14 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IFileStorageService, LocalFileStorageService>();
         services.AddScoped<IHashService, Sha256HashService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<IJwtService, JwtService>();
+
+        // OCR
+        services.AddScoped<IOcrService, TesseractOcrService>();
+
+        // AI
+        services.AddHttpClient<IOpenAiClient, OpenAiClient>();
+        services.AddScoped<IAiService, OpenAiService>();
 
         // Unit of Work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

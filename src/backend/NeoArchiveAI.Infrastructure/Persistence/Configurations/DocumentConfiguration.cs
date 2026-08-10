@@ -39,6 +39,10 @@ public class DocumentConfiguration : IEntityTypeConfiguration<Document>
             .IsRequired()
             .HasMaxLength(200);
 
+        builder.Property(x => x.ExtractedText)
+            .HasColumnType("text")
+            .IsRequired(false);
+
         builder.Property(x => x.Size)
             .IsRequired();
 

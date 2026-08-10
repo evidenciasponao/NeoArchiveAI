@@ -21,6 +21,8 @@ public class Document : BaseEntity
 
     public string Hash { get; private set; } = string.Empty;
 
+    public string? ExtractedText { get; private set; }
+
     public Guid CategoryId { get; private set; }
 
     public Guid UploadedBy { get; private set; }
@@ -77,6 +79,17 @@ public class Document : BaseEntity
         Title = title.Trim();
         Description = description.Trim();
         CategoryId = categoryId;
+
+        SetUpdated();
+    }
+
+    public void SetExtractedText(string extractedText)
+    {
+        Guard.AgainstNullOrWhiteSpace(
+            extractedText,
+            nameof(extractedText));
+
+        ExtractedText = extractedText.Trim();
 
         SetUpdated();
     }

@@ -1,140 +1,86 @@
-# API Documentation
+# 🌐 API
 
-> **NeoArchiveAI REST API**
->
-> Version: **v1**
->
-> This document describes the REST API exposed by NeoArchiveAI. It is intended for developers who want to integrate, consume, or extend the platform.
+> **NeoArchiveAI REST API Documentation**
 
----
+Version: **v1**
 
-# Table of Contents
-
-* Overview
-* Base URL
-* API Versioning
-* Technology Stack
-* Authentication
-* Authorization
-* Request Format
-* Response Format
-* HTTP Status Codes
-* Error Handling
-* API Conventions
-* Endpoints
-* Pagination
-* Filtering
-* Sorting
-* Validation
-* File Uploads
-* Rate Limiting
-* Swagger / OpenAPI
-* Postman Collection
-* cURL Examples
-* C# Examples
-* JavaScript Examples
-* Best Practices
-* Future Improvements
+This document describes the current REST API exposed by NeoArchiveAI.
 
 ---
 
-# Overview
+# 📋 Table of Contents
+
+- Overview
+- Base URL
+- Technology Stack
+- Authentication
+- Request & Response
+- HTTP Status Codes
+- Endpoints
+- Validation
+- File Upload
+- OCR
+- Postman
+- Best Practices
+- Future Improvements
+
+---
+
+# 📖 Overview
 
 NeoArchiveAI exposes a RESTful API built with ASP.NET Core following Clean Architecture principles.
 
-The API is responsible for:
+Current capabilities include:
 
-* Managing digital documents.
-* Organizing files.
-* Handling metadata.
-* Providing a scalable backend.
-* Serving client applications.
-
-The API is stateless.
-
-Every request must contain all the information required to process it.
+- JWT Authentication
+- Documents CRUD
+- Categories CRUD
+- Users CRUD
+- Document Upload
+- Document Download
+- OCR Extraction
 
 ---
 
-# Base URL
+# 🌐 Base URL
 
 Development
 
 ```text
-https://localhost:5001/api
+http://localhost:5263/api
 ```
 
 Production
 
 ```text
-https://your-domain.com/api
-```
-
-Future versions may include:
-
-```text
-/api/v1
-/api/v2
+https://your-domain/api
 ```
 
 ---
 
-# API Versioning
+# ⚙️ Technology Stack
 
-Current Version
+- ASP.NET Core 10
+- Entity Framework Core
+- PostgreSQL
+- JWT Authentication
+- Clean Architecture
+- Repository Pattern
+- Unit Of Work
+- FluentValidation
+- Tesseract OCR
 
-```
-v1
-```
+---
 
-Future versions will follow Microsoft's API Versioning recommendations.
+# 🔐 Authentication
 
-Example
+NeoArchiveAI uses JWT Bearer Authentication.
+
+Login
 
 ```http
-GET /api/v1/documents
+POST /api/Auth/login
 ```
-
----
-
-# Technology Stack
-
-The API is built with:
-
-* ASP.NET Core
-* Entity Framework Core
-* SQL Server
-* Clean Architecture
-* Repository Pattern
-* Dependency Injection
-* Swagger / OpenAPI
-
-Future technologies
-
-* Redis
-* Docker
-* Serilog
-* xUnit
-* FluentValidation
-* JWT Authentication
-* GitHub Actions
-
----
-
-# Authentication
-
-Current Status
-
-Authentication is not required during the initial MVP.
-
-Future Implementation
-
-The API will support:
-
-* JWT Bearer Authentication
-* Refresh Tokens
-* Role-Based Authorization
-* Claims-Based Authorization
 
 Example
 
@@ -142,470 +88,225 @@ Example
 Authorization: Bearer <token>
 ```
 
----
-
-# Authorization
-
-Future roles may include:
-
-| Role          | Permissions   |
-| ------------- | ------------- |
-| Administrator | Full access   |
-| User          | Read / Upload |
-| Auditor       | Read Only     |
+All protected endpoints require a valid JWT.
 
 ---
 
-# Request Format
+# 📦 Request & Response
 
-All requests use JSON.
+The API uses JSON for most requests and responses.
 
-Example
-
-```json
-{
-    "title": "My Document",
-    "description": "Example",
-    "categoryId": 2
-}
-```
-
-Content-Type
-
-```http
-application/json
-```
-
----
-
-# Response Format
-
-Successful responses
-
-```json
-{
-    "success": true,
-    "message": "Operation completed successfully.",
-    "data": {}
-}
-```
-
-Error responses
-
-```json
-{
-    "success": false,
-    "message": "Validation failed.",
-    "errors": []
-}
-```
-
----
-
-# HTTP Status Codes
-
-| Code | Meaning               |
-| ---- | --------------------- |
-| 200  | OK                    |
-| 201  | Created               |
-| 204  | No Content            |
-| 400  | Bad Request           |
-| 401  | Unauthorized          |
-| 403  | Forbidden             |
-| 404  | Not Found             |
-| 409  | Conflict              |
-| 422  | Validation Error      |
-| 500  | Internal Server Error |
-
----
-
-# Error Handling
-
-Example
-
-```json
-{
-    "success": false,
-    "message": "Document not found."
-}
-```
-
-Validation Example
-
-```json
-{
-    "success": false,
-    "errors": [
-        "Title is required.",
-        "CategoryId is invalid."
-    ]
-}
-```
-
----
-
-# API Conventions
-
-HTTP Verbs
-
-| Verb   | Description    |
-| ------ | -------------- |
-| GET    | Read           |
-| POST   | Create         |
-| PUT    | Update         |
-| PATCH  | Partial Update |
-| DELETE | Delete         |
-
-Naming Convention
-
-* camelCase for JSON
-* PascalCase in C#
-* REST resource naming
-* Plural endpoints
-
-Example
-
-```
-/documents
-/categories
-/files
-```
-
----
-
-# Endpoints
-
-## Documents
-
-### Get all documents
-
-```http
-GET /documents
-```
-
-Response
-
-```json
-[
-    {
-        "id":1,
-        "title":"First Document"
-    }
-]
-```
-
----
-
-### Get document by Id
-
-```http
-GET /documents/{id}
-```
-
----
-
-### Create document
-
-```http
-POST /documents
-```
-
-Body
-
-```json
-{
-    "title":"My Document",
-    "description":"Description"
-}
-```
-
----
-
-### Update document
-
-```http
-PUT /documents/{id}
-```
-
----
-
-### Delete document
-
-```http
-DELETE /documents/{id}
-```
-
----
-
-## Categories
-
-Example
-
-```http
-GET /categories
-```
-
----
-
-## Files
-
-Example
-
-```http
-GET /files
-```
-
----
-
-# Pagination
-
-Future implementation
-
-Example
-
-```http
-GET /documents?page=1&pageSize=20
-```
-
-Response
-
-```json
-{
-    "page":1,
-    "pageSize":20,
-    "totalItems":125,
-    "totalPages":7,
-    "items":[]
-}
-```
-
----
-
-# Filtering
-
-Example
-
-```http
-GET /documents?category=Invoices
-```
-
-Multiple filters
-
-```http
-GET /documents?category=Invoices&year=2026
-```
-
----
-
-# Sorting
-
-Ascending
-
-```http
-GET /documents?sort=title
-```
-
-Descending
-
-```http
-GET /documents?sort=-createdAt
-```
-
----
-
-# Validation
-
-Current validation
-
-* Required fields
-* Maximum length
-* Data type validation
-
-Future validation
-
-* FluentValidation
-* Business Rules
-* Domain Validation
-
----
-
-# File Uploads
-
-Future endpoint
-
-```http
-POST /documents/upload
-```
-
-Multipart request
+File uploads use:
 
 ```text
 multipart/form-data
 ```
 
+Example response
+
+```json
+{
+    "id": "...",
+    "title": "My Document"
+}
+```
+
+---
+
+# 📄 HTTP Status Codes
+
+| Code | Meaning |
+|------|---------|
+| 200 | OK |
+| 201 | Created |
+| 204 | No Content |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+
+---
+
+# 🚀 Endpoints
+
+## Authentication
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /api/Auth/login |
+
+---
+
+## Documents
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/Documents |
+| GET | /api/Documents/{id} |
+| POST | /api/Documents |
+| PUT | /api/Documents/{id} |
+| DELETE | /api/Documents/{id} |
+| GET | /api/Documents/{id}/download |
+
+---
+
+## Categories
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/Categories |
+| GET | /api/Categories/{id} |
+| POST | /api/Categories |
+| PUT | /api/Categories/{id} |
+| DELETE | /api/Categories/{id} |
+
+---
+
+## Users
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/Users |
+| GET | /api/Users/{id} |
+| POST | /api/Users |
+| PUT | /api/Users/{id} |
+| DELETE | /api/Users/{id} |
+
+---
+
+## OCR
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /api/Ocr/{documentId} |
+
+Extracts text from supported document formats using Tesseract OCR.
+
+---
+
+# ✅ Validation
+
+Current validation includes:
+
+- FluentValidation
+- Domain validation
+- Business rules
+- Global Exception Middleware
+
+---
+
+# 📤 File Upload
+
+Upload documents using:
+
+```http
+POST /api/Documents
+```
+
+Content-Type
+
+```text
+multipart/form-data
+```
+
+Uploaded files are:
+
+- Stored in Local Storage
+- Hashed using SHA256
+- Registered in PostgreSQL
+
+---
+
+# 🔍 OCR
+
+OCR endpoint
+
+```http
+POST /api/Ocr/{documentId}
+```
+
+Workflow
+
+```text
+Document
+
+↓
+
+Storage
+
+↓
+
+Tesseract
+
+↓
+
+ExtractedText
+
+↓
+
+PostgreSQL
+```
+
 Supported formats
 
-* PDF
-* DOCX
-* XLSX
-* PNG
-* JPG
-
-Future
-
-* AI indexing
-* OCR
-* Metadata extraction
+- PNG
+- JPG
+- JPEG
+- BMP
+- TIFF
+- PDF
 
 ---
 
-# Rate Limiting
+# 📬 Postman
 
-Future implementation
+NeoArchiveAI is validated using Postman.
 
-Example
-
-```
-100 requests / minute
-```
-
-Responses
-
-```
-429 Too Many Requests
-```
-
----
-
-# Swagger / OpenAPI
-
-Swagger will be available at
+Typical workflow
 
 ```text
-https://localhost:5001/swagger
-```
+Login
 
-Production
+↓
 
-```text
-https://your-domain.com/swagger
-```
+JWT
 
----
+↓
 
-# Postman Collection
+Protected Endpoint
 
-A Postman Collection will be included in future releases.
+↓
 
-Recommended folders
-
-* Documents
-* Categories
-* Files
-
----
-
-# cURL Examples
-
-Get Documents
-
-```bash
-curl https://localhost:5001/api/documents
-```
-
-Create Document
-
-```bash
-curl -X POST \
--H "Content-Type: application/json" \
--d '{"title":"Example"}' \
-https://localhost:5001/api/documents
+PostgreSQL Verification
 ```
 
 ---
 
-# C# Examples
+# 🎯 Best Practices
 
-```csharp
-HttpClient client = new HttpClient();
-
-var response = await client.GetAsync(
-    "https://localhost:5001/api/documents");
-
-string json = await response.Content.ReadAsStringAsync();
-```
+- Keep controllers thin
+- Business logic belongs to Application
+- Validate every request
+- Use asynchronous operations
+- Return appropriate HTTP status codes
+- Follow REST conventions
 
 ---
 
-# JavaScript Examples
+# 🚀 Future Improvements
 
-```javascript
-const response = await fetch("/api/documents");
-
-const data = await response.json();
-```
-
-POST Example
-
-```javascript
-await fetch("/api/documents",{
-    method:"POST",
-    headers:{
-        "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-        title:"Example"
-    })
-});
-```
+- OpenAI Integration
+- Intelligent Search
+- Refresh Tokens
+- Role-Based Authorization
+- API Versioning
+- Rate Limiting
+- Health Checks
+- Serilog
+- OpenTelemetry
 
 ---
 
-# Best Practices
+# 📄 Notes
 
-* Always validate input.
-* Use HTTPS.
-* Handle errors properly.
-* Never expose internal exceptions.
-* Keep endpoints RESTful.
-* Return appropriate status codes.
-* Use asynchronous operations.
-* Follow SOLID principles.
-* Keep controllers thin.
-* Place business logic in the Application layer.
-
----
-
-# Future Improvements
-
-The API roadmap includes:
-
-* JWT Authentication
-* Refresh Tokens
-* Role-Based Authorization
-* FluentValidation
-* xUnit Tests
-* Integration Tests
-* Redis Cache
-* Docker Support
-* Background Services
-* Health Checks
-* API Versioning
-* Logging with Serilog
-* OpenTelemetry
-* CI/CD Pipeline
-* Azure Deployment
-* Kubernetes Support
-* AI-powered document indexing
-* OCR integration
-* Semantic Search
-* Full-text search
-* ElasticSearch integration
-
----
-
-# License
-
-This documentation is part of the NeoArchiveAI project and may evolve as new features are introduced.
-
-Contributions and improvements are welcome.
+This document reflects the current API implementation and evolves together with the project.

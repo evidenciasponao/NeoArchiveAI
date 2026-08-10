@@ -6,10 +6,14 @@ namespace NeoArchiveAI.Api.Middleware;
 public sealed class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public ExceptionMiddleware(RequestDelegate next)
+    public ExceptionMiddleware(
+        RequestDelegate next,
+        ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -20,6 +24,8 @@ public sealed class ExceptionMiddleware
         }
         catch (ValidationException exception)
         {
+            _logger.LogWarning(exception, exception.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             await context.Response.WriteAsJsonAsync(new
@@ -31,6 +37,8 @@ public sealed class ExceptionMiddleware
         }
         catch (ConflictException exception)
         {
+            _logger.LogWarning(exception, exception.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.Conflict;
 
             await context.Response.WriteAsJsonAsync(new
@@ -41,6 +49,8 @@ public sealed class ExceptionMiddleware
         }
         catch (NotFoundException exception)
         {
+            _logger.LogWarning(exception, exception.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
             await context.Response.WriteAsJsonAsync(new
@@ -51,6 +61,8 @@ public sealed class ExceptionMiddleware
         }
         catch (Exception exception)
         {
+            _logger.LogError(exception, exception.Message);
+
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             await context.Response.WriteAsJsonAsync(new

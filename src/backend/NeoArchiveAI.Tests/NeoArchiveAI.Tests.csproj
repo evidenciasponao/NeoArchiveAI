@@ -18,4 +18,16 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NeoArchiveAI.Domain\NeoArchiveAI.Domain.csproj" />
+    <ProjectReference Include="..\NeoArchiveAI.Application\NeoArchiveAI.Application.csproj" />
+    <ProjectReference Include="..\NeoArchiveAI.Infrastructure\NeoArchiveAI.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestFiles\ocr-test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

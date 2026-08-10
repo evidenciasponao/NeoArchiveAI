@@ -1,8 +1,8 @@
 # 🔒 SECURITY
 
 > **NeoArchiveAI Security Policy**
->
-> This document describes the security practices, guidelines, and future security roadmap for the NeoArchiveAI project.
+
+This document describes the current security implementation and the planned security improvements for NeoArchiveAI.
 
 ---
 
@@ -13,7 +13,7 @@
 - Authentication
 - Authorization
 - Password Security
-- Data Protection
+- Document Security
 - API Security
 - Database Security
 - Secrets Management
@@ -24,22 +24,30 @@
 
 ---
 
-# Overview
+# 📖 Overview
 
-Security is a fundamental aspect of NeoArchiveAI.
+Security is a core aspect of NeoArchiveAI.
 
-The project is designed following security best practices to protect user data, prevent unauthorized access, and provide a secure foundation for future features.
+The project follows secure development practices to protect user data, document integrity and API access.
+
+Current security implementation includes:
+
+- JWT Authentication
+- BCrypt Password Hashing
+- SHA256 File Integrity
+- FluentValidation
+- Global Exception Middleware
 
 ---
 
 # 🛡️ Security Principles
 
-NeoArchiveAI follows these principles:
+NeoArchiveAI follows:
 
 - Least Privilege
 - Defense in Depth
 - Secure by Default
-- Principle of Separation of Concerns
+- Separation of Concerns
 - Input Validation
 - Secure Coding Practices
 
@@ -47,151 +55,169 @@ NeoArchiveAI follows these principles:
 
 # 🔐 Authentication
 
-## Current Status
-
-Authentication is currently under development.
-
-The project will support:
+## Current Implementation
 
 - JWT Bearer Authentication
-- Refresh Tokens
-- Secure Password Verification
+- Protected API Endpoints
+- Token Expiration
+- Login Endpoint
+
+Authentication Flow
+
+```text
+User
+
+↓
+
+Login
+
+↓
+
+JWT
+
+↓
+
+Bearer Token
+
+↓
+
+Protected Endpoints
+```
 
 ---
 
 # 👥 Authorization
 
-Future versions will implement:
+Current implementation
+
+- JWT Authorization
+- `[Authorize]` protected endpoints
+
+Future improvements
 
 - Role-Based Authorization (RBAC)
 - Claims-Based Authorization
 - Resource Authorization
 
-Example roles:
-
-- Administrator
-- User
-- Auditor
-
 ---
 
 # 🔑 Password Security
 
-Passwords are never stored in plain text.
+Current implementation
 
-Current implementation:
+- BCrypt Password Hashing
+- Password Verification
+- Plain-text passwords are never stored
 
-- BCrypt password hashing
-- Password verification using BCrypt
-
-Future improvements:
+Future improvements
 
 - Password complexity rules
-- Password expiration (optional)
-- Account lockout after repeated failures
+- Account lockout
+- Password reset
+- MFA
 
 ---
 
-# 🗄️ Data Protection
+# 📄 Document Security
 
-Current practices:
+Current implementation
 
-- Soft Delete for logical deletion
-- Input validation using FluentValidation
-- Business rules enforced in the Domain layer
+- Local Storage
+- SHA256 File Hash
+- File metadata stored in PostgreSQL
+- OCR restricted to supported file types
 
-Future improvements:
+Future improvements
 
-- Data encryption at rest
-- Sensitive field encryption
-- Audit logs
+- Digital signatures
+- File encryption
+- Secure cloud storage
 
 ---
 
 # 🌐 API Security
 
-Current practices:
-
-- RESTful endpoints
-- Global Exception Middleware
-- Standard HTTP status codes
-
-Future improvements:
+Current implementation
 
 - JWT Authentication
-- HTTPS enforcement
+- Authorization
+- FluentValidation
+- Global Exception Middleware
+- Standard HTTP Status Codes
+
+Future improvements
+
+- HTTPS Enforcement
 - Rate Limiting
-- CORS configuration
-- Request throttling
+- CORS Policies
+- Security Headers
 
 ---
 
-# 🐘 Database Security
+# 🗄️ Database Security
 
-Current database:
+Current implementation
 
 - PostgreSQL
+- Entity Framework Core
+- Parameterized Queries
+- Soft Delete
 
-Best practices:
+Future improvements
 
-- Entity Framework Core Migrations
-- Parameterized queries via EF Core
-- Soft Delete strategy
-
-Future improvements:
-
-- Dedicated database users
+- Database encryption
+- Read-only users
 - Automated backups
-- Read-only accounts for reporting
 
 ---
 
 # 🔑 Secrets Management
 
-Secrets should never be committed to the repository.
+Never commit secrets to the repository.
 
 Use:
 
-- appsettings.Development.json (development only)
 - Environment Variables
-- Secret Manager (recommended)
+- appsettings.Development.json
+- Secret Manager
 - Azure Key Vault (future)
 
 Never store:
 
 - Database passwords
-- JWT secrets
-- API keys
-- Connection strings with production credentials
+- JWT Secret Keys
+- API Keys
+- Production Connection Strings
 
 ---
 
 # 📋 Logging
 
-Current status:
+Current implementation
 
-Basic logging provided by ASP.NET Core.
+- ASP.NET Core Logging
+- Global Exception Middleware
 
-Future improvements:
+Future improvements
 
 - Serilog
-- Structured logging
-- Audit logging
-- Security event logging
+- Structured Logging
+- Audit Logs
+- Security Event Logging
 
-Sensitive information must never be written to logs.
+Sensitive information must never be logged.
 
 ---
 
 # 📦 Dependency Management
 
-Recommendations:
+Recommendations
 
-- Keep NuGet packages updated.
-- Remove unused dependencies.
-- Review dependency vulnerabilities regularly.
+- Keep NuGet packages updated
+- Remove unused packages
+- Review security vulnerabilities regularly
 
-Recommended commands:
+Useful commands
 
 ```bash
 dotnet list package
@@ -205,34 +231,39 @@ dotnet list package --outdated
 
 If you discover a security issue:
 
-1. Do not publish it publicly.
-2. Report it privately to the project maintainer.
-3. Include reproduction steps.
-4. Provide logs or screenshots when possible.
-5. Allow time for the issue to be fixed before public disclosure.
+1. Report it privately.
+2. Include reproduction steps.
+3. Include logs if available.
+4. Allow time for remediation before public disclosure.
 
 ---
 
 # 🚀 Security Roadmap
 
-Planned improvements:
+Completed
 
-- JWT Authentication
+- ✅ JWT Authentication
+- ✅ BCrypt Password Hashing
+- ✅ SHA256 File Integrity
+- ✅ FluentValidation
+- ✅ Global Exception Middleware
+
+Planned
+
 - Refresh Tokens
 - Role-Based Authorization
-- HTTPS Enforcement
 - Rate Limiting
-- CORS Policies
+- HTTPS Enforcement
 - Security Headers
 - Azure Key Vault
-- Secrets Manager
-- Audit Logs
-- Account Lockout
+- Audit Logging
 - Password Reset
-- Multi-Factor Authentication (MFA)
+- Multi-Factor Authentication
 
 ---
 
-# 📄 License
+# 📄 Notes
 
-This security policy evolves together with the project and will be updated as new security features are introduced.
+Security is continuously reviewed as NeoArchiveAI evolves.
+
+Every new feature should follow the project's security principles and integrate with the existing authentication and validation mechanisms.

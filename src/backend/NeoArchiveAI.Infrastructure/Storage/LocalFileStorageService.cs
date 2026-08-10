@@ -42,4 +42,29 @@ public class LocalFileStorageService : IFileStorageService
         return Path.Combine(relativeFolder, storedFileName)
             .Replace("\\", "/");
     }
+
+    public Task<Stream> OpenReadAsync(
+        string storagePath,
+        CancellationToken cancellationToken = default)
+    {
+        var fullPath = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "Storage",
+            storagePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
+
+        if (!File.Exists(fullPath))
+        {
+            throw new FileNotFoundException(
+                "Stored file was not found.",
+                fullPath);
+        }
+
+        Stream stream = new FileStream(
+            fullPath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read);
+
+        return Task.FromResult(stream);
+    }
 }
